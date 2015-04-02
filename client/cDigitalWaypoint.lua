@@ -14,7 +14,7 @@ function DigitalWaypoint:__init()
 	self.msg_color = Color(192, 192, 192) -- Local chat messages
 	
 	self.custom = {} -- Add custom waypoints here
-	self.custom["string"] = {1000, 1000}
+	self.custom["pia"] = {9610, 12760, "Panau Intl Airport"}
 
 	Events:Subscribe("LocalPlayerChat", self, self.Control)
 	
@@ -55,7 +55,7 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 		n = self.custom[x_string][1]
 		m = self.custom[x_string][2]
 		Waypoint:SetPosition(Vector3(n - 16384, 0, m - 16384))
-		Chat:Print("Custom waypoint set "..tostring(math.floor(Waypoint:GetDistance() + 0.5)).." m away at x = "..tostring(n).." m, y = "..tostring(m).." m for \""..x_string.."\"", self.msg_color)
+		Chat:Print("Waypoint set "..tostring(math.floor(Waypoint:GetDistance() + 0.5)).." m away at x = "..tostring(n).." m, y = "..tostring(m).." m for "..tostring(self.custom[x_string][3]), self.msg_color)
 		return false
 	elseif cmd_string == "/sw" and (not self.custom[x_string] or n and m) then
 		Chat:Print("Invalid waypoint", self.msg_color)
@@ -76,7 +76,7 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 	if args.text == "/gw" then
 		local pos, marker = Waypoint:GetPosition()
 		if marker == true then
-			Chat:Print("Waypoint located "..tostring(math.floor(Waypoint:GetDistance() + 0.5)).." m away at: x = "..tostring(pos.x + 16384).."m, y = "..tostring(pos.z + 16384).." m", self.msg_color)
+			Chat:Print("Waypoint located "..tostring(math.floor(Waypoint:GetDistance() + 0.5)).." m away at x = "..tostring(pos.x + 16384).." m, y = "..tostring(pos.z + 16384).." m", self.msg_color)
 		else
 			Chat:Print("No waypoint set", self.msg_color)
 		end
@@ -85,7 +85,7 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 	
 	if args.text == "/pos" then
 		local pos = LocalPlayer:GetPosition()
-		Chat:Print("Current location: x = "..tostring(math.floor(pos.x + 16384 + 0.5)).." m, y = "..tostring(math.floor(pos.z + 16384 + 0.5)).." m", self.msg_color)
+		Chat:Print("Current location is x = "..tostring(math.floor(pos.x + 16384 + 0.5)).." m, y = "..tostring(math.floor(pos.z + 16384 + 0.5)).." m", self.msg_color)
 	return false
 	end
 	
