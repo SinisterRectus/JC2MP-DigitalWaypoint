@@ -29,24 +29,20 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 	local n
 	local m
 	
---	if x_string and y_string then
+	if tonumber(x_string) then
+		n = tonumber(x_string)
+	elseif string.find(x_string, "k") and x_string ~= "k" and string.sub(x_string, string.find(x_string, "k") + 1) == "" and tonumber(x_string:split("k")[1]) then
+	-- Checks x input string for a "k" with nothing after it, but with a number before it
+		n = tonumber(x_string:split("k")[1]) * 1000
+	end
 	
-		if tonumber(x_string) then
-			n = tonumber(x_string)
-		elseif string.find(x_string, "k") and x_string ~= "k" and string.sub(x_string, string.find(x_string, "k") + 1) == "" and tonumber(x_string:split("k")[1]) then
-		-- Checks x input string for a "k" with nothing after it, but with a number before it
-			n = tonumber(x_string:split("k")[1]) * 1000
-		end
+	if tonumber(y_string) then 
+		m = tonumber(y_string)
+	elseif string.find(y_string, "k") and y_string ~= "k" and string.sub(y_string, string.find(y_string, "k") + 1) == "" and tonumber(y_string:split("k")[1]) then
+	-- Checks y input string for a "k" with nothing after it, but with a number before it
+		m = tonumber(y_string:split("k")[1]) * 1000
+	end	
 		
-		if tonumber(y_string) then 
-			m = tonumber(y_string)
-		elseif string.find(y_string, "k") and y_string ~= "k" and string.sub(y_string, string.find(y_string, "k") + 1) == "" and tonumber(y_string:split("k")[1]) then
-		-- Checks y input string for a "k" with nothing after it, but with a number before it
-			m = tonumber(y_string:split("k")[1]) * 1000
-		end	
-		
---	end
-	
 	if cmd_string == "/sw" and n and m then
 		Waypoint:SetPosition(Vector3(n - 16384, 0, m - 16384))
 		Chat:Print("Waypoint set "..tostring(math.floor(Waypoint:GetDistance() + 0.5)).." m away at x = "..tostring(n).." m, y = "..tostring(m).. " m", self.msg_color)
