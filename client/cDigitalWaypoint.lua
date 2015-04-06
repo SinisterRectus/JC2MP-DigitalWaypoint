@@ -29,7 +29,7 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 	local n
 	local m
 	
-	if x_string and y_string then
+--	if x_string and y_string then
 	
 		if tonumber(x_string) then
 			n = tonumber(x_string)
@@ -45,7 +45,7 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 			m = tonumber(y_string:split("k")[1]) * 1000
 		end	
 		
-	end
+--	end
 	
 	if cmd_string == "/sw" and n and m then
 		Waypoint:SetPosition(Vector3(n - 16384, 0, m - 16384))
@@ -57,13 +57,13 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 		Waypoint:SetPosition(Vector3(n - 16384, 0, m - 16384))
 		Chat:Print("Waypoint set "..tostring(math.floor(Waypoint:GetDistance() + 0.5)).." m away at x = "..tostring(n).." m, y = "..tostring(m).." m for "..tostring(self.custom[x_string][3]), self.msg_color)
 		return false
-	elseif cmd_string == "/sw" and (not self.custom[x_string] or n and m) then
+	elseif cmd_string == "/sw" and not (self.custom[x_string] or (n and m)) then
 		Chat:Print("Invalid waypoint", self.msg_color)
 		return false
 	end
 	
 	if args.text == "/cw" then
-		local wp_pos, marker = Waypoint:GetPosition()
+		local pos, marker = Waypoint:GetPosition()
 		if marker == true then
 			Waypoint:Remove()
 			Chat:Print("Waypoint removed", self.msg_color)
