@@ -22,9 +22,9 @@ end
 
 function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 
-	local cmd_string = args.text:split(" ")[1]
-	local x_string = args.text:split(" ")[2]
-	local y_string = args.text:split(" ")[3]
+	local cmd_string = tostring(args.text:split(" ")[1])
+	local x_string = tostring(args.text:split(" ")[2])
+	local y_string = tostring(args.text:split(" ")[3])
 	
 	local n
 	local m
@@ -42,8 +42,6 @@ function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 	-- Checks y input string for a "k" with nothing after it, but with a number before it
 		m = tonumber(y_string:split("k")[1]) * 1000
 	end
-	
-	print(#args.text:split(" "))
 	
 	if cmd_string == "/sw" then
 		if n and m and #args.text:split(" ") == 3 then
