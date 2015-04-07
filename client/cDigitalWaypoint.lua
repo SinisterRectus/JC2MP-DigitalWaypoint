@@ -23,8 +23,8 @@ end
 function DigitalWaypoint:Control(args) -- Subscribed to LocalPlayerChat
 
 	local cmd_string = args.text:split(" ")[1]
-	local x_string = tostring(args.text:split(" ")[2])
-	local y_string = tostring(args.text:split(" ")[3])
+	local x_string = args.text:split(" ")[2]
+	local y_string = args.text:split(" ")[3]
 	
 	local n
 	local m
